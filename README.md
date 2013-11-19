@@ -24,7 +24,7 @@ Please configure a new `js/config.js` file from [`js/config.js.dist`](js/config.
 | Option | Description |
 |--------|-------------|
 | JENKINS_URL | Jenkins server url |
-| AUTHORIZATION_TOKEN | If your jenkins server is secured, set your authoriaztion token like "Basic 0123456=" (optional) |
+| AUTHORIZATION_TOKEN | If your jenkins server is secured, set your authoriaztion token like "Basic 0123456=" (opt.) |
 | DEFAULT_JENKINS_VIEW | Default view. Like "All"|
 | JOBS_TO_BE_DISPLAYED | Array of all jobs types that can be displayed |
 | DEFAULT_JOBS_PER_LINE | Default number of jobs per line on a screen |
