@@ -2,6 +2,8 @@
 
 A build monitoring tool (buildwall) that allows you to quickly detect failing projects for Jenkins.
 
+![Product shot](productshot.png "Product shot")
+
 ### Requirements
 
 This project required a [cors-plugin Jenkins plugin](https://github.com/jhinrichsen/cors-plugin) to enabled CORS.  
