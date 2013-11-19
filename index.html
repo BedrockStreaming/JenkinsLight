@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="fr" ng-app="JenkinsLightApp">
+<head>
+    <meta charset="utf-8">
+    <title>JenkinsLight by M6Web</title>
+    <link href="//fonts.googleapis.com/css?family=Sintony:400,700" rel="stylesheet" type="text/css">
+    <link href="css/app.css"  rel="stylesheet" type="text/css">
+    <script src="lib/angular/angular.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/app.js"></script>
+</head>
+<body>
+    <div ng-controller="JenkinsLightCtrl">
+        <div class="info"><a href="http://github.com/m6web/JenkinsLight">JenkinsLight</a> by <a href="http://tech.m6web.fr">M6Web</a></div>
+        <div class="grid wall">
+            <div ng-repeat="job in jobs" class="col-1-{{ jobsPerLine }}">
+                <div class="job job-color-{{ job.color }}">
+                    <h2><a href="{{ job.url }}" target="_blank">{{ job.name }}</a></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
