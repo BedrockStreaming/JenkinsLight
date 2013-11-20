@@ -2,7 +2,7 @@
 
 A build monitoring tool (buildwall) that allows you to quickly detect failing projects for Jenkins.
 
-![Product shot](productshot.png "Product shot")
+![JenkinsLight](http://img818.imageshack.us/img818/6423/mz5c.png "JenkinsLight")
 
 ### Requirements
 
