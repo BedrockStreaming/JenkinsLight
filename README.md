@@ -28,7 +28,7 @@ Please configure a new `js/config.js` file from [`js/config.js.dist`](js/config.
 | DEFAULT_JENKINS_VIEW | Default view. Like "All"|
 | JOBS_TO_BE_DISPLAYED | Array of all jobs types that can be displayed |
 | DEFAULT_JOBS_PER_LINE | Default number of jobs per line on a screen |
-| REFRESH_TIME | Refresh time |
+| REFRESH_TIME | Refresh time (ms) |
 
 ### Use
 
