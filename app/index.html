@@ -1,0 +1,43 @@
+<!doctype html>
+<!--[if lt IE 7]>            <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>                 <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>                 <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>JenkinsLight by M6Web</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <link href="//fonts.googleapis.com/css?family=Sintony:400,700" rel="stylesheet" type="text/css">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <!-- build:css(.tmp) styles/main.css -->
+        <link rel="stylesheet" href="styles/main.css">
+        <!-- endbuild -->
+    </head>
+    <body ng-app="jenkinsLightApp">
+        <div class="container" ng-view=""></div>
+
+        <script src="bower_components/angular/angular.js"></script>
+
+        <!-- build:js scripts/modules.js -->
+        <script src="bower_components/angular-resource/angular-resource.js"></script>
+        <script src="bower_components/angular-route/angular-route.js"></script>
+        <!-- endbuild -->
+
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="scripts/app.js"></script>
+        <script src="scripts/config.js"></script>
+        <script src="scripts/controllers/main.js"></script>
+        <!-- endbuild -->
+
+        <!-- build:js -->
+        <script src="bower_components/angular-mocks/angular-mocks.js"></script>
+        <script src="scripts/e2e-mocks.js"></script>
+        <script src="scripts/config.js.dist"></script>
+        <!-- endbuild -->
+    </body>
+</html>

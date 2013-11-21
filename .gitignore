@@ -1,2 +1,6 @@
-/lib
-/js/config.js
+node_modules
+dist
+.tmp
+.sass-cache
+app/bower_components
+scripts/config.js
