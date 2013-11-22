@@ -1,4 +1,4 @@
-# JenkinsLight [![Build Status](https://secure.travis-ci.org/M6Web/JenkinsLight.png)](http://travis-ci.org/M6Web/JenkinsLight)
+# JenkinsLight [![Build Status](https://api.travis-ci.org/M6Web/JenkinsLight.png?branch=master)](http://travis-ci.org/M6Web/JenkinsLight)
 
 A build monitoring tool (buildwall) that allows you to quickly detect failing projects for Jenkins.
 
