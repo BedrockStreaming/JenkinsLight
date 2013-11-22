@@ -4,12 +4,12 @@ A build monitoring tool (buildwall) that allows you to quickly detect failing pr
 
 ![JenkinsLight](http://img818.imageshack.us/img818/6423/mz5c.png "JenkinsLight")
 
-### Requirements
+## Requirements
 
 This project required a [cors-plugin Jenkins plugin](https://github.com/jhinrichsen/cors-plugin) to enabled CORS.  
 Enabling CORS would let you call the Jenkins REST API from javascript (you can use [the provided packaged plugin](bin/cors.hpi)).
 
-### Installation
+## Installation
 
 ```shell
 $ git clone git@github.com:M6Web/JenkinsLight.git
@@ -19,11 +19,11 @@ $ bower install
 $ grunt build
 ```
 
-Then your server root url must target the `app` folder.
+Then your server root url must target the `dist` folder.
 
-### Configuration
+## Configuration
 
-Please configure a new `scripts/config.js` file from [`scripts/config.js.dist`](js/config.js.dist).
+Please configure a new `app/scripts/config.js` file from [`app/scripts/config.js.dist`](app/scripts/config.js.dist).
 
 | Option | Description |
 |--------|-------------|
@@ -34,7 +34,7 @@ Please configure a new `scripts/config.js` file from [`scripts/config.js.dist`](
 | DEFAULT_JOBS_PER_LINE | Default number of jobs per line on a screen |
 | REFRESH_TIME | Refresh time (ms) |
 
-### Use
+## Use
 
 Use `view` query parameter for select a Jenkins view.
 
@@ -44,16 +44,14 @@ http://jenkins-light-url/index.html#?view=MyView
 
 ## Running the tests
 
-With a local server up
-
 ```shell
-$ grunt test
+$ npm test
 ```
 
-### Credits
+## Credits
 
 Developped by the [Cytron Team](http://cytron.fr/) of [M6 Web](http://tech.m6web.fr/).
 
-### License
+## License
 
 [JenkinsLight](https://github.com/M6Web/JenkinsLight) is licensed under the [MIT license](LICENSE).
