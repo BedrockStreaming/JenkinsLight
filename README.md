@@ -1,4 +1,4 @@
-# JenkinsLight [![Build Status](https://secure.travis-ci.org/M6Web/JenkinsLight.png)](http://travis-ci.org/M6Web/JenkinsLight)
+# JenkinsLight [![Build Status](https://api.travis-ci.org/M6Web/JenkinsLight.png?branch=master)](http://travis-ci.org/M6Web/JenkinsLight)
 
 A build monitoring tool (buildwall) that allows you to quickly detect failing projects for Jenkins.
 
@@ -17,10 +17,7 @@ $ cd JenkinsLight
 $ npm install -g bower grunt-cli
 $ npm install
 $ bower install
-$ grunt build
 ```
-
-Then your server root url must target the `dist` folder.
 
 ## Configuration
 
@@ -34,6 +31,15 @@ Please configure a new `app/scripts/config.js` file from [`app/scripts/config.js
 | JOBS_TO_BE_DISPLAYED | Array of all jobs types that can be displayed |
 | DEFAULT_JOBS_PER_LINE | Default number of jobs per line on a screen |
 | REFRESH_TIME | Refresh time (ms) |
+
+
+Then you have to build the server code.
+
+```shell
+$ grunt build
+```
+
+Your server root url must target the `dist` folder.
 
 ## Use
 
