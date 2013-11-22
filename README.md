@@ -15,6 +15,7 @@ Enabling CORS would let you call the Jenkins REST API from javascript (you can u
 $ git clone git@github.com:M6Web/JenkinsLight.git
 $ cd JenkinsLight
 $ npm install -g bower grunt-cli
+$ npm install
 $ bower install
 $ grunt build
 ```
