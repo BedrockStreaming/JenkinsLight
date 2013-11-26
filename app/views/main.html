@@ -1,9 +1,12 @@
 <div ng-controller="JenkinsLightCtrl">
-    <div class="info"><a href="http://github.com/m6web/JenkinsLight">JenkinsLight</a> by <a href="http://tech.m6web.fr">M6Web</a></div>
     <div class="grid wall">
-        <div ng-repeat="job in jobs" class="col-1-{{ jobsPerLine }}">
-            <div class="job job-color-{{ job.color }}">
-                <h2><a href="{{ job.url }}" target="_blank">{{ job.name }}</a></h2>
+        <div ng-repeat="(name, view) in views">
+            <h3 ng-show="viewCount(name)"><a href="#/?view={{ view.realname }}">{{ name }}</a></h3>
+
+            <div ng-repeat="job in view.jobs" class="col-1-{{ jobsPerLine }}">
+                <div class="job job-color-{{ job.color }}">
+                    <h2><a href="{{ job.url }}" target="_blank">{{ job.name }}</a></h2>
+                </div>
             </div>
         </div>
     </div>
