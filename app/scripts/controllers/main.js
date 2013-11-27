@@ -9,7 +9,7 @@ angular.module('jenkinsLightApp')
                 var cleanName = viewName.replace(/\/view\//gi, '/');
 
                 if($scope.views.hasOwnProperty(cleanName) === false) {
-                    $scope.views[cleanName] = { realname: viewName, jobs: {} };
+                    $scope.views[cleanName] = { realname: viewName, color: 'blue', jobs: {} };
                 }
 
                 $http({method: 'GET', url: url}).
@@ -30,8 +30,14 @@ angular.module('jenkinsLightApp')
                                         split(new RegExp(viewParameter, 'gi')).join('');
 
                                     $scope.views[cleanName].jobs[job.name] = job;
+
+                                    if(job.color !== 'blue' && job.color !== 'blue_anime') {
+                                        $scope.views[cleanName].color = 'red';
+                                    }
                                 }
                             });
+
+                            $scope.opened[cleanName] = false; //['red', 'red_anime'].indexOf($scope.views[cleanName].color) > -1;
                         }
                     });
             },
@@ -42,6 +48,7 @@ angular.module('jenkinsLightApp')
             };
 
         $scope.views = {};
+        $scope.opened = {};
         $scope.viewCount = function(name) {
             return Object.keys($scope.views[name].jobs).length;
         };
