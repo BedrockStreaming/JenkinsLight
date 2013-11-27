@@ -7,6 +7,9 @@ html, body {
     font-size: 13px;
     height: 100%;
 }
+body.hide-cursor {
+    cursor: none;
+}
 a {
     color: inherit;
     text-decoration: none;
@@ -15,6 +18,7 @@ h3 {
     padding: 10px 0 10px 10px;
     box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
     cursor: pointer;
+    font-weight: bold;
 }
 .clear:before, .clear:after {
     content: "\0020";
@@ -36,11 +40,13 @@ h3 {
     font-weight: bold;
 }
 .wall .job {
+    position: relative;
     height: 60px;
     padding: 5px;
     box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
 }
-.wall .job h2, .wall .job small {
+.wall .job h2,
+.wall .job small {
     color: white;
     font-weight: bold;
     text-transform: uppercase;
@@ -48,30 +54,51 @@ h3 {
 .wall .job h2 a {
     text-decoration: none;
 }
+.wall .job-color-aborted,
+.wall .job-color-aborted_anime,
+.wall .job-color-notbuilt,
+.wall .job-color-notbuilt_anime,
 .wall .job-color-disabled,
-.wall .job-color-disabled_anime {
+.wall .job-color-disabled_anime,
+.wall h3 i.badge.disabled {
     background-color: #cfcfcf;
     border-right: 1px solid #b5b5b5;
     border-bottom: 1px solid #b5b5b5;
 }
+.wall .job-color-aborted a,
+.wall .job-color-aborted_anime a,
+.wall .job-color-notbuilt a,
+.wall .job-color-notbuilt_anime a,
 .wall .job-color-disabled a,
 .wall .job-color-disabled_anime a {
     color: #696969;
 }
 .wall .job-color-blue,
-.wall .job-color-blue_anime {
+.wall .job-color-blue_anime,
+.wall h3 i.badge.blue {
     background-color: #2ecc71;
     border-right: 1px solid #27ae60;
     border-bottom: 1px solid #27ae60;
 }
 .wall .job-color-red,
-.wall .job-color-red_anime {
+.wall .job-color-red_anime,
+.wall h3 i.badge.red {
     background-color: #e74c3c;
     border-right: 1px solid #c0392b;
     border-bottom: 1px solid #c0392b;
 }
+.wall .job-color-yellow,
+.wall .job-color-yellow_anime,
+.wall h3 i.badge.yellow {
+    background-color: #dfd672;
+    border-right: 1px solid #d1c433;
+    border-bottom: 1px solid #d1c433;
+}
 .wall .job-color-blue_anime,
-.wall .job-color-red_anime {
+.wall .job-color-red_anime,
+.wall .job-color-notbuilt_anime,
+.wall .job-color-disabled_anime,
+.wall .job-color-yellow_anime {
     animation-name: blinker;
     animation-duration: 1s;
     animation-timing-function: linear;
@@ -81,31 +108,26 @@ h3 {
     -webkit-animation-timing-function: linear;
     -webkit-animation-iteration-count: infinite;
 }
-.wall .badge {
-    width: 24px;
-    height: 24px;
+.wall h3 i.badge {
+    width: 16px;
+    height: 16px;
     margin-right: 10px;
     display: block;
     float: left;
     box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
 }
-.wall .badge.blue {
-    background-color: #2ecc71;
-    border-right: 1px solid #27ae60;
-    border-bottom: 1px solid #27ae60;
-}
-.wall .badge.red {
-    background-color: #e74c3c;
-    border-right: 1px solid #c0392b;
-    border-bottom: 1px solid #c0392b;
-}
-.wall .badge.disabled {
-    background-color: #cfcfcf;
-    border-right: 1px solid #b5b5b5;
-    border-bottom: 1px solid #b5b5b5;
+.wall h3 i.badge.disabled {
+    min-width: 16px;
+    width: auto;
+    text-align: center;
+    padding: 0 3px;
+    float: right
 }
 .wall .job small {
     font-size: 0.7em;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
 }
 
 @-moz-keyframes blinker {

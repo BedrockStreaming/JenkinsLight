@@ -1,47 +1,60 @@
 'use strict';
 
 angular.module('jenkinsLightApp')
-    .controller('JenkinsLightCtrl', function JenkinsLightCtrl ($scope, CONFIG, $http, $timeout, $location) {
+    .controller('JenkinsLightCtrl', function JenkinsLightCtrl ($scope, CONFIG, $timeout, $location, $http) {
         $scope.jobsPerLine = CONFIG.DEFAULT_JOBS_PER_LINE;
 
         var viewParameter = $location.search().view ? $location.search().view.split(',') : CONFIG.DEFAULT_JENKINS_VIEW,
+            fetchBuilds = function(job, cb) {
+                $http({method: 'GET', url: job.url + 'api/json'})
+                    .success(function(data) {
+                        if((data.builds || []).length) {
+                            job.build = data.builds[0];
+                        }
+
+                        (cb || function() {})();
+                    });
+            },
+            fetchJob = function(job, view) {
+                job.realname = job.name;
+                job.name = job.name.replace(/[\-_\.]/gi, ' ').replace(view.name, '');
+                job.status = job.color.replace('_anime', '');
+                job.build = view.jobs[job.name] ? view.jobs[job.name].build : undefined;
+
+                return job;
+            },
             fetchView = function(viewName, url) {
                 var cleanName = viewName.replace(/\/view\//gi, '/'),
                     currentView = _.find($scope.views, { name: cleanName });
 
                 if(!currentView) {
-                    $scope.views.push(currentView = { name: cleanName, realname: viewName, color: 'blue', jobs: {} });
+                    currentView = { name: cleanName, realname: viewName, color: 'blue', disabled: '', jobs: {} };
+                    $scope.views.push(currentView);
                 }
 
-                $http({method: 'GET', url: url}).
-                    success(function(data) {
+                $http({method: 'GET', url: url})
+                    .success(function(data) {
                         if(data.views) {
                             data.views.forEach(function(view) {
                                 fetchView(viewName + '/view/' + view.name, view.url + 'api/json');
                             });
                         } else {
                             data.jobs.forEach(function(job) {
-                                if (CONFIG.JOBS_TO_BE_DISPLAYED.indexOf(job.color) > -1) {
-                                    job.name = job.name
-                                        .replace(/[\-_\.]/gi, ' ')
-                                        .replace(new RegExp(viewName, 'gi'), '');
+                                job = fetchJob(job, currentView);
+                                currentView.jobs[job.name] = job;
 
-                                    currentView.jobs[job.name] = job;
+                                if(['disabled', 'notbuilt', 'aborted'].indexOf(job.status) > -1) {
+                                    var abbr = job.status.toUpperCase().substr(0, 1);
 
-                                    if(['disabled', 'disabled_anime'].indexOf(job.color) > -1) {
-                                        currentView.disabled = true;
+                                    if(currentView.disabled.indexOf(abbr) === -1) {
+                                        currentView.disabled = (currentView.disabled || '') + abbr;
                                     }
+                                }
 
-                                    if(['red', 'red_anime'].indexOf(job.color) > -1) {
-                                        currentView.color = 'red';
+                                if(['red', 'yellow'].indexOf(job.status) > -1) {
+                                    currentView.color = job.status;
 
-                                        $http({method: 'GET', url: job.url + 'api/json' }).
-                                            success(function(data) {
-                                                if((data.builds || []).length) {
-                                                    currentView.jobs[job.name].build = data.builds[0].number;
-                                                }
-                                            });
-                                    }
+                                    fetchBuilds(job);
                                 }
                             });
 
@@ -68,6 +81,33 @@ angular.module('jenkinsLightApp')
                 (view = _.find($scope.views, { name: name })) &&
                 Object.keys(view.jobs).length > 0
             );
+        };
+        $scope.openView = function(view) {
+            $scope.fetchBuilds(
+                view,
+                function() {
+                    $scope.opened[view.name] = !$scope.opened[view.name];
+                }
+            );
+        };
+        $scope.fetchBuilds = function(view, cb) {
+            var done = 0,
+                count = 0;
+
+            cb = cb || function() {};
+
+            if($scope.opened[view.name] === false) {
+                count = Object.keys(view.jobs).length;
+
+                angular.forEach(
+                    view.jobs,
+                    function(job) {
+                        fetchBuilds(job, function() { if(++done === count) { cb(); } });
+                    }
+                );
+            } else {
+                cb();
+            }
         };
 
         callAPI();

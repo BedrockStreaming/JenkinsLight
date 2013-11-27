@@ -1,17 +1,17 @@
-<h3 ng-show="viewCount(view.name)" ng-click="opened[view.name] = !opened[view.name]">
+<h3 ng-show="viewCount(view.name)" ng-click="openView(view)" ng-dblclick="fetchBuilds(view)">
     <i class="badge {{ view.color }}"></i>
-    <i ng-show="view.disabled" class="badge disabled"></i>
     {{ view.name }}
+    <i ng-show="view.disabled" class="badge disabled" title="A: Aborted / D: Disabled / N: Not built">{{ view.disabled }}</i>
 </h3>
 
 <div ng-show="opened[view.name] || view.color !== 'blue'" class="clear">
     <div ng-repeat="job in view.jobs" class="col-1-{{ jobsPerLine }}">
-        <div class="job job-color-{{ job.color }}" ng-show="opened[view.name] || (!opened[view.name] && (job.color === 'red' || job.color === 'red_anime' || job.color === 'blue_anime'))">
+        <div class="job job-color-{{ job.color }}" ng-show="opened[view.name] || (!opened[view.name] && (job.color === 'aborted' || job.color === 'aborted_anime' || job.color === 'notbuilt' || job.color === 'notbuilt_anime' || job.color === 'yellow' || job.color === 'yellow_anime' || job.color === 'red' || job.color === 'red_anime'))">
             <h2>
                 <a href="{{ job.url }}" target="_blank">{{ job.name }}</a>
             </h2>
             <small ng-show="job.build">
-                <a href="{{ job.url }}{{ job.build }}/console" target="_blank">#{{ job.build }}</a>
+                <a href="{{ job.url }}{{ job.build.number }}/console" target="_blank" title="{{ job.build.shortDescription }}">#{{ job.build.number }}</a>
             </small>
         </div>
     </div>
