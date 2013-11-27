@@ -4,6 +4,10 @@
             <div ng-include="'views/view.html'"></div>
         </div>
 
+        <div ng-repeat="view in views | filter: { color: 'disabled' }">
+            <div ng-include="'views/view.html'"></div>
+        </div>
+
         <div ng-repeat="view in views | filter: { color: 'blue' }">
             <div ng-include="'views/view.html'"></div>
         </div>
