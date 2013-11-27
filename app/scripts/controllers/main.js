@@ -34,7 +34,9 @@ angular.module('jenkinsLightApp')
                                 }
                             });
 
-                            $scope.opened[currentView.name] = false;
+                            if($scope.opened.hasOwnProperty(currentView.name) === false) {
+                                $scope.opened[currentView.name] = false;
+                            }
                         }
                     });
             },
