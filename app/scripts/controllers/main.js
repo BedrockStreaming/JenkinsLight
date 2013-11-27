@@ -34,14 +34,14 @@ angular.module('jenkinsLightApp')
 
                                     if(['red', 'red_anime'].indexOf(job.color) > -1) {
                                         currentView.color = 'red';
-                                    }
 
-                                    $http({method: 'GET', url: job.url + 'api/json' }).
-                                        success(function(data) {
-                                            if((data.builds || []).length) {
-                                                currentView.jobs[job.name].build = data.builds[0].number;
-                                            }
-                                        });
+                                        $http({method: 'GET', url: job.url + 'api/json' }).
+                                            success(function(data) {
+                                                if((data.builds || []).length) {
+                                                    currentView.jobs[job.name].build = data.builds[0].number;
+                                                }
+                                            });
+                                    }
                                 }
                             });
 
