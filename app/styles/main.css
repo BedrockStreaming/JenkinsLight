@@ -4,7 +4,7 @@ html{color:#000;background:#FFF}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre
 html, body {
     background-color: #ecf0f1;
     font-family: "Sintony";
-    font-size: 16px;
+    font-size: 13px;
     height: 100%;
 }
 a {
@@ -36,8 +36,8 @@ h3 {
     font-weight: bold;
 }
 .wall .job {
-    height: 85px;
-    padding: 10px;
+    height: 60px;
+    padding: 5px;
     box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
 }
 .wall .job h2 {

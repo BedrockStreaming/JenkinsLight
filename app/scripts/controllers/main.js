@@ -4,12 +4,13 @@ angular.module('jenkinsLightApp')
     .controller('JenkinsLightCtrl', function JenkinsLightCtrl ($scope, CONFIG, $http, $timeout, $location) {
         $scope.jobsPerLine = CONFIG.DEFAULT_JOBS_PER_LINE;
 
-        var viewParameter = $location.search().view ? $location.search().view : CONFIG.DEFAULT_JENKINS_VIEW,
+        var viewParameter = $location.search().view ? $location.search().view.split(',') : CONFIG.DEFAULT_JENKINS_VIEW,
             fetchView = function(viewName, url) {
-                var cleanName = viewName.replace(/\/view\//gi, '/');
+                var cleanName = viewName.replace(/\/view\//gi, '/'),
+                    currentView = _.find($scope.views, { name: cleanName });
 
-                if($scope.views.hasOwnProperty(cleanName) === false) {
-                    $scope.views[cleanName] = { realname: viewName, color: 'blue', jobs: {} };
+                if(!currentView) {
+                    $scope.views.push(currentView = { name: cleanName, realname: viewName, color: 'blue', jobs: {} });
                 }
 
                 $http({method: 'GET', url: url}).
@@ -20,37 +21,40 @@ angular.module('jenkinsLightApp')
                             });
                         } else {
                             data.jobs.forEach(function(job) {
-                                // Check if this `job` can be displayable
                                 if (CONFIG.JOBS_TO_BE_DISPLAYED.indexOf(job.color) > -1) {
-                                    job.name = job.name.
-                                        split('-').join(' ').
-                                        split('_').join(' ').
-                                        split('.').join(' ').
-                                        // Remove all occurrence of view name in `job` name
-                                        split(new RegExp(viewParameter, 'gi')).join('');
+                                    job.name = job.name
+                                        .replace(/[\-_\.]/gi, ' ')
+                                        .replace(new RegExp(viewName, 'gi'), '');
 
-                                    $scope.views[cleanName].jobs[job.name] = job;
+                                    currentView.jobs[job.name] = job;
 
-                                    if(job.color !== 'blue' && job.color !== 'blue_anime') {
-                                        $scope.views[cleanName].color = 'red';
+                                    if(['blue', 'blue_anime'].indexOf(job.color) === -1) {
+                                        currentView.color = 'red';
                                     }
                                 }
                             });
 
-                            $scope.opened[cleanName] = false; //['red', 'red_anime'].indexOf($scope.views[cleanName].color) > -1;
+                            $scope.opened[currentView.name] = false;
                         }
                     });
             },
             callAPI = function () {
-                fetchView(viewParameter, CONFIG.JENKINS_URL + '/view/' + viewParameter + '/api/json');
+                viewParameter.forEach(function(view) {
+                    fetchView(view, CONFIG.JENKINS_URL + '/view/' + view + '/api/json');
+                });
 
                 $timeout(callAPI, CONFIG.REFRESH_TIME);
             };
 
-        $scope.views = {};
+        $scope.views = [];
         $scope.opened = {};
         $scope.viewCount = function(name) {
-            return Object.keys($scope.views[name].jobs).length;
+            var view;
+
+            return (
+                (view = _.find($scope.views, { name: name })) &&
+                Object.keys(view.jobs).length > 0
+            );
         };
 
         callAPI();

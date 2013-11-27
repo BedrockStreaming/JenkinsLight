@@ -1,17 +1,11 @@
 <div ng-controller="JenkinsLightCtrl">
     <div class="grid wall">
-        <div ng-repeat="(name, view) in views">
-            <h3 ng-show="viewCount(name)" ng-click="opened[name] = !opened[name]">
-                <i class="badge {{ view.color }}"></i> {{ name }}
-            </h3>
+        <div ng-repeat="view in views | filter: { color: 'red' }">
+            <div ng-include="'views/view.html'"></div>
+        </div>
 
-            <div ng-show="opened[name] || view.color !== 'blue'" class="clear">
-                <div ng-repeat="job in view.jobs" class="col-1-{{ jobsPerLine }}">
-                    <div class="job job-color-{{ job.color }}" ng-show="opened[name] || (!opened[name] && (job.color === 'red' || job.color === 'red_anime' || job.color === 'blue_anime'))">
-                        <h2><a href="{{ job.url }}" target="_blank">{{ job.name }}</a></h2>
-                    </div>
-                </div>
-            </div>
+        <div ng-repeat="view in views | filter: { color: 'blue' }">
+            <div ng-include="'views/view.html'"></div>
         </div>
     </div>
 </div>
