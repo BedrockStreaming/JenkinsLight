@@ -17,7 +17,7 @@ angular.module('JenkinsLightApp')
             },
             fetchJob = function(job, view) {
                 job.realname = job.name;
-                job.name = job.name.replace(/[\-_\.]/gi, ' ').replace(view.name, '');
+                job.name = job.name.replace(new RegExp(view.name, 'gi'), '').replace(/[\-_\.]/gi, ' ');
                 job.status = job.color.replace('_anime', '');
                 job.build = view.jobs[job.name] ? view.jobs[job.name].build : undefined;
                 job.disabled = '';
