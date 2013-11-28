@@ -1,4 +1,4 @@
-<h3 ng-show="viewCount(view.name)" ng-click="openView(view)" ng-dblclick="fetchBuilds(view)">
+<h3 ng-show="viewCount(view)" ng-click="opened[view.name] = !opened[view.name]">
     <i class="badge {{ view.color }}"></i>
     {{ view.name }}
     <i ng-show="view.disabled" class="badge disabled" title="A: Aborted / D: Disabled / N: Not built">{{ view.disabled }}</i>

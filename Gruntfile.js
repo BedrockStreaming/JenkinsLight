@@ -13,19 +13,10 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         yeoman: {
-            // configurable paths
             app: require('./bower.json').appPath || 'app',
             dist: 'dist'
         },
         watch: {
-            coffee: {
-                files: ['<%= yeoman.app %>/scripts/{,*/}*.coffee'],
-                tasks: ['coffee:dist']
-            },
-            coffeeTest: {
-                files: ['test/spec/{,*/}*.coffee'],
-                tasks: ['coffee:test']
-            },
             styles: {
                 files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
                 tasks: ['copy:styles', 'autoprefixer']
@@ -131,11 +122,6 @@ module.exports = function (grunt) {
                 }]
             }
         },
-        // not used since Uglify task does concat,
-        // but still available if needed
-        /*concat: {
-            dist: {}
-        },*/
         rev: {
             dist: {
                 files: {
@@ -181,31 +167,15 @@ module.exports = function (grunt) {
                 }]
             }
         },
-        cssmin: {
-            // By default, your `index.html` <!-- Usemin Block --> will take care of
-            // minification. This option is pre-configured if you do not wish to use
-            // Usemin blocks.
-            // dist: {
-            //     files: {
-            //         '<%= yeoman.dist %>/styles/main.css': [
-            //             '.tmp/styles/{,*/}*.css',
-            //             '<%= yeoman.app %>/styles/{,*/}*.css'
-            //         ]
-            //     }
-            // }
-        },
         htmlmin: {
             dist: {
                 options: {
-                    /*removeCommentsFromCDATA: true,
-                    // https://github.com/yeoman/grunt-usemin/issues/44
-                    //collapseWhitespace: true,
+                    removeCommentsFromCDATA: true,
                     collapseBooleanAttributes: true,
                     removeAttributeQuotes: true,
                     removeRedundantAttributes: true,
                     useShortDoctype: true,
-                    removeEmptyAttributes: true,
-                    removeOptionalTags: true*/
+                    removeEmptyAttributes: true
                 },
                 files: [{
                     expand: true,
@@ -215,7 +185,16 @@ module.exports = function (grunt) {
                 }]
             }
         },
-        // Put files not handled in other tasks here
+        ngmin: {
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: '.tmp/concat/scripts',
+                    src: '*.js',
+                    dest: '.tmp/concat/scripts'
+                }]
+            }
+        },
         copy: {
             dist: {
                 files: [{
@@ -226,7 +205,6 @@ module.exports = function (grunt) {
                     src: [
                         '*.{ico,png,txt}',
                         '.htaccess',
-                        'bower_components/**/*',
                         'images/{,*/}*.{gif,webp}',
                         'fonts/*'
                     ]
@@ -248,34 +226,27 @@ module.exports = function (grunt) {
         },
         concurrent: {
             server: [
-                'coffee:dist',
                 'copy:styles'
             ],
             test: [
-                'coffee',
                 'copy:styles'
             ],
             dist: [
-                'coffee',
                 'copy:styles',
                 'imagemin',
-                'svgmin',
                 'htmlmin'
             ]
+        },
+        karma: {
+            options: {
+                configFile: 'karma.conf.js',
+                singleRun: true
+            },
+            dev: {}
         },
         cdnify: {
             dist: {
                 html: ['<%= yeoman.dist %>/*.html']
-            }
-        },
-        ngmin: {
-            dist: {
-                files: [{
-                    expand: true,
-                    cwd: '.tmp/concat/scripts',
-                    src: '*.js',
-                    dest: '.tmp/concat/scripts'
-                }]
             }
         },
         uglify: {
@@ -289,9 +260,11 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerTask('server', function (target) {
+    grunt.registerTask('server', function(target) {
         if (target === 'dist') {
-            return grunt.task.run(['build', 'connect:dist:keepalive']);
+            grunt.task.run(['build', 'connect:dist:keepalive']);
+
+            return;
         }
 
         grunt.task.run([
@@ -319,7 +292,6 @@ module.exports = function (grunt) {
         'ngmin',
         'copy:dist',
         'cdnify',
-        'cssmin',
         'uglify',
         'rev',
         'usemin'

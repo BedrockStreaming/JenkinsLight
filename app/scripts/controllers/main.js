@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('jenkinsLightApp')
-    .controller('JenkinsLightCtrl', function JenkinsLightCtrl ($scope, CONFIG, $timeout, $location, $http) {
+angular.module('JenkinsLightApp')
+    .controller('JenkinsLightCtrl', function JenkinsLightCtrl ($scope, CONFIG, $http, $timeout, $location) {
         $scope.jobsPerLine = CONFIG.DEFAULT_JOBS_PER_LINE;
 
         var viewParameter = $location.search().view ? $location.search().view.split(',') : CONFIG.DEFAULT_JENKINS_VIEW,
@@ -74,13 +74,8 @@ angular.module('jenkinsLightApp')
 
         $scope.views = [];
         $scope.opened = {};
-        $scope.viewCount = function(name) {
-            var view;
-
-            return (
-                (view = _.find($scope.views, { name: name })) &&
-                Object.keys(view.jobs).length > 0
-            );
+        $scope.viewCount = function(view) {
+            return Object.keys(view.jobs).length;
         };
         $scope.openView = function(view) {
             $scope.fetchBuilds(
