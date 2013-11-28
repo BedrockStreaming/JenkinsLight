@@ -226,13 +226,13 @@ module.exports = function (grunt) {
         },
         concurrent: {
             server: [
-                'copy:styles'
+                'copy'
             ],
             test: [
-                'copy:styles'
+                'copy'
             ],
             dist: [
-                'copy:styles',
+                'copy',
                 'imagemin',
                 'htmlmin'
             ]

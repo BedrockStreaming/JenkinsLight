@@ -6,7 +6,7 @@
 
 <div ng-show="opened[view.name] || view.color !== 'blue'" class="clear">
     <div ng-repeat="job in view.jobs" class="col-1-{{ jobsPerLine }}">
-        <div class="job job-color-{{ job.color }}" ng-show="opened[view.name] || (!opened[view.name] && (job.status === 'aborted' || job.status === 'notbuilt' || job.status === 'yellow' || job.status === 'red'))">
+        <div class="job job-color-{{ job.color }}" ng-show="opened[view.name] || (!opened[view.name] && (job.status === 'aborted' || job.status === 'notbuilt' || job.status === 'yellow' || job.status === 'red' || job.color === 'blue_anime' || job.color === 'disabled_anime'))">
             <h2>
                 <a href="{{ job.url }}" target="_blank">{{ job.name }}</a>
             </h2>
