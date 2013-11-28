@@ -20,15 +20,19 @@ angular.module('JenkinsLightApp')
                 job.name = job.name.replace(/[\-_\.]/gi, ' ').replace(view.name, '');
                 job.status = job.color.replace('_anime', '');
                 job.build = view.jobs[job.name] ? view.jobs[job.name].build : undefined;
+                job.disabled = '';
+
+                if(['disabled', 'notbuilt', 'aborted'].indexOf(job.status) > -1) {
+                    job.disabled = job.status.toUpperCase().substr(0, 1);
+                }
 
                 return job;
             },
             fetchView = function(viewName, url) {
-                var cleanName = viewName.replace(/\/view\//gi, '/'),
-                    currentView = _.find($scope.views, { name: cleanName });
+                var currentView = _.find($scope.views, { realname: viewName });
 
                 if(!currentView) {
-                    currentView = { name: cleanName, realname: viewName, color: 'blue', disabled: '', jobs: {} };
+                    currentView = { name: viewName.replace(/\/view\//gi, '/'), realname: viewName, color: 'blue', disabled: '', jobs: {} };
                     $scope.views.push(currentView);
                 }
 
@@ -44,16 +48,16 @@ angular.module('JenkinsLightApp')
                                 currentView.jobs[job.name] = job;
 
                                 if(['disabled', 'notbuilt', 'aborted'].indexOf(job.status) > -1) {
-                                    var abbr = job.status.toUpperCase().substr(0, 1);
-
-                                    if(currentView.disabled.indexOf(abbr) === -1) {
-                                        currentView.disabled = (currentView.disabled || '') + abbr;
+                                    if(currentView.disabled.indexOf(job.disabled) === -1) {
+                                        currentView.disabled = (currentView.disabled === undefined ? '' : currentView.disabled) + job.disabled;
                                     }
                                 }
 
                                 if(['red', 'yellow'].indexOf(job.status) > -1) {
                                     currentView.color = job.status;
+                                }
 
+                                if(['red', 'yellow', 'notbuilt', 'aborted'].indexOf(job.status) > -1) {
                                     fetchBuilds(job);
                                 }
                             });

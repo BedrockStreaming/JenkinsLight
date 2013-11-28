@@ -19,6 +19,8 @@ h3 {
     box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
     cursor: pointer;
     font-weight: bold;
+    font-size: 18px;
+    text-transform: uppercase;
 }
 .clear:before, .clear:after {
     content: "\0020";
@@ -40,6 +42,7 @@ h3 {
     font-weight: bold;
 }
 .wall .job {
+    font-size: 18px;
     position: relative;
     height: 60px;
     padding: 5px;
@@ -49,7 +52,6 @@ h3 {
 .wall .job small {
     color: white;
     font-weight: bold;
-    text-transform: uppercase;
 }
 .wall .job h2 a {
     text-decoration: none;
@@ -70,7 +72,13 @@ h3 {
 .wall .job-color-notbuilt a,
 .wall .job-color-notbuilt_anime a,
 .wall .job-color-disabled a,
-.wall .job-color-disabled_anime a {
+.wall .job-color-disabled_anime a,
+.wall .job-color-aborted small,
+.wall .job-color-aborted_anime small,
+.wall .job-color-notbuilt small,
+.wall .job-color-notbuilt_anime small,
+.wall .job-color-disabled small,
+.wall .job-color-disabled_anime small {
     color: #696969;
 }
 .wall .job-color-blue,
@@ -109,15 +117,15 @@ h3 {
     -webkit-animation-iteration-count: infinite;
 }
 .wall h3 i.badge {
-    width: 16px;
-    height: 16px;
+    width: 24px;
+    height: 24px;
     margin-right: 10px;
     display: block;
     float: left;
     box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
 }
 .wall h3 i.badge.disabled {
-    min-width: 16px;
+    min-width: 24px;
     width: auto;
     text-align: center;
     padding: 0 3px;
