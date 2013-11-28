@@ -21,6 +21,7 @@ angular.module('JenkinsLightApp')
                 job.status = job.color.replace('_anime', '');
                 job.build = view.jobs[job.name] ? view.jobs[job.name].build : undefined;
                 job.disabled = '';
+                job.animated = false;
 
                 if(['disabled', 'notbuilt', 'aborted'].indexOf(job.status) > -1) {
                     job.disabled = job.status.toUpperCase().substr(0, 1);
@@ -32,7 +33,16 @@ angular.module('JenkinsLightApp')
                 var currentView = _.find($scope.views, { realname: viewName });
 
                 if(!currentView) {
-                    currentView = { name: viewName.replace(/\/view\//gi, '/'), realname: viewName, color: 'blue', disabled: '', jobs: {} };
+                    currentView = {
+                        name: viewName.replace(/\/view\//gi, '/'),
+                        realname: viewName,
+                        color: 'blue',
+                        disabled: '',
+                        animated: false,
+                        jobs: {}
+                    };
+
+                    $scope.opened[currentView.name] = false;
                     $scope.views.push(currentView);
                 }
 
@@ -57,14 +67,14 @@ angular.module('JenkinsLightApp')
                                     currentView.color = job.status;
                                 }
 
+                                if(job.color.indexOf('_anime') > -1) {
+                                    job.animated = currentView.animated = true;
+                                }
+
                                 if(['red', 'yellow', 'notbuilt', 'aborted'].indexOf(job.status) > -1) {
                                     fetchBuilds(job);
                                 }
                             });
-
-                            if($scope.opened.hasOwnProperty(currentView.name) === false) {
-                                $scope.opened[currentView.name] = false;
-                            }
                         }
                     });
             },

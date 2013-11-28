@@ -1,112 +1,96 @@
-html{color:#000;background:#FFF}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0}table{border-collapse:collapse;border-spacing:0}fieldset,img{border:0}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal}ol,ul{list-style:none}caption,th{text-align:left}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}q:before,q:after{content:''}abbr,acronym{border:0;font-variant:normal}sup{vertical-align:text-top}sub{vertical-align:text-bottom}input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit}input,textarea,select{*font-size:100%}legend{color:#000}#yui3-css-stamp.cssreset{display:none}
-*,*:after,*:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}body{margin:0}[class*='col-']{float:left}.grid{width:100%;min-width:755px;margin:0 auto;overflow:hidden}.grid:after{content:"";display:table;clear:both}.grid-pad{padding:20px 0 0 20px}.grid-pad>[class*='col-']:last-of-type{padding-right:20px}.push-right{float:right}.col-1-1{width:100%}.col-2-3,.col-8-12{width:66.66%}.col-1-2,.col-6-12{width:50%}.col-1-3,.col-4-12{width:33.33%}.col-1-4,.col-3-12{width:25%}.col-1-5{width:20%}.col-1-6,.col-2-12{width:16.667%}.col-1-7{width:14.28%}.col-1-8{width:12.5%}.col-1-9{width:11.1%}.col-1-10{width:10%}.col-1-11{width:9.09%}.col-1-12{width:8.33%}.col-11-12{width:91.66%}.col-10-12{width:83.333%}.col-9-12{width:75%}.col-5-12{width:41.66%}.col-7-12{width:58.33%}@media handheld,only screen and (max-width:767px){.grid{width:100%;min-width:0;margin-left:0;margin-right:0;padding-left:0;padding-right:0}[class*='col-']{width:auto;float:none;margin-left:0;margin-right:0;margin-top:10px;margin-bottom:10px;padding-left:20px;padding-right:20px}}
-
 html, body {
     background-color: #ecf0f1;
     font-family: "Sintony";
     font-size: 13px;
     height: 100%;
 }
-body.hide-cursor {
-    cursor: none;
-}
 a {
     color: inherit;
     text-decoration: none;
 }
-h3 {
+small {
+    font-size: 0.8em;
+}
+h2 { font-size: 20px; }
+h3 { font-size: 16px; }
+
+.wall {
+    margin: 0;
+    max-width: 100%;
+}
+.view h2 {
     padding: 10px 0 10px 10px;
     box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
     cursor: pointer;
     font-weight: bold;
-    font-size: 18px;
     text-transform: uppercase;
 }
-.clear:before, .clear:after {
-    content: "\0020";
-    display: block;
-    height: 0;
-    overflow: hidden;
-}
-.clear:after {
-    clear: both;
-}
-.info {
-    font-size: 12px;
-    border-bottom: 1px solid #ccc;
-    color: #555;
-    line-height: 20px;
-    padding: 4px 16px;
-}
-.info a {
-    font-weight: bold;
-}
-.wall .job {
-    font-size: 18px;
+.job {
     position: relative;
     height: 60px;
     padding: 5px;
-    box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
 }
-.wall .job h2,
-.wall .job small {
+.job h3,
+.job small {
     color: white;
     font-weight: bold;
 }
-.wall .job h2 a {
-    text-decoration: none;
+.job h3 {
+    text-transform: lowercase;
 }
-.wall .job-color-aborted,
-.wall .job-color-aborted_anime,
-.wall .job-color-notbuilt,
-.wall .job-color-notbuilt_anime,
-.wall .job-color-disabled,
-.wall .job-color-disabled_anime,
-.wall h3 i.badge.disabled {
+.job small {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}
+.job,
+.badge {
+    box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+.badge {
+    min-width: 24px;
+    height: 24px;
+    margin-right: 10px;
+    display: block;
+    float: left;
+}
+.badge.disabled {
+    text-align: center;
+    padding: 0 5px;
+    float: right
+}
+.aborted,
+.notbuild,
+.disabled {
     background-color: #cfcfcf;
     border-right: 1px solid #b5b5b5;
     border-bottom: 1px solid #b5b5b5;
 }
-.wall .job-color-aborted a,
-.wall .job-color-aborted_anime a,
-.wall .job-color-notbuilt a,
-.wall .job-color-notbuilt_anime a,
-.wall .job-color-disabled a,
-.wall .job-color-disabled_anime a,
-.wall .job-color-aborted small,
-.wall .job-color-aborted_anime small,
-.wall .job-color-notbuilt small,
-.wall .job-color-notbuilt_anime small,
-.wall .job-color-disabled small,
-.wall .job-color-disabled_anime small {
+.job.aborted h3,
+.job.notbuilt h3,
+.job.disabled h3,
+.job.aborted small,
+.job.notbuilt small,
+.job.disabled small {
     color: #696969;
 }
-.wall .job-color-blue,
-.wall .job-color-blue_anime,
-.wall h3 i.badge.blue {
+
+.blue {
     background-color: #2ecc71;
     border-right: 1px solid #27ae60;
     border-bottom: 1px solid #27ae60;
 }
-.wall .job-color-red,
-.wall .job-color-red_anime,
-.wall h3 i.badge.red {
+.red {
     background-color: #e74c3c;
     border-right: 1px solid #c0392b;
     border-bottom: 1px solid #c0392b;
 }
-.wall .job-color-yellow,
-.wall .job-color-yellow_anime,
-.wall h3 i.badge.yellow {
+.yellow {
     background-color: #dfd672;
     border-right: 1px solid #d1c433;
     border-bottom: 1px solid #d1c433;
 }
-.wall .job-color-blue_anime,
-.wall .job-color-red_anime,
-.wall .job-color-notbuilt_anime,
-.wall .job-color-disabled_anime,
-.wall .job-color-yellow_anime {
+.animated {
     animation-name: blinker;
     animation-duration: 1s;
     animation-timing-function: linear;
@@ -115,27 +99,6 @@ h3 {
     -webkit-animation-duration: 1s;
     -webkit-animation-timing-function: linear;
     -webkit-animation-iteration-count: infinite;
-}
-.wall h3 i.badge {
-    width: 24px;
-    height: 24px;
-    margin-right: 10px;
-    display: block;
-    float: left;
-    box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-}
-.wall h3 i.badge.disabled {
-    min-width: 24px;
-    width: auto;
-    text-align: center;
-    padding: 0 3px;
-    float: right
-}
-.wall .job small {
-    font-size: 0.7em;
-    position: absolute;
-    bottom: 5px;
-    right: 5px;
 }
 
 @-moz-keyframes blinker {

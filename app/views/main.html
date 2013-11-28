@@ -1,14 +1,14 @@
 <div ng-controller="JenkinsLightCtrl">
-    <div class="grid wall" ng-mousemove="showCursor()">
-        <div ng-repeat="view in views | filter: { color: 'red' }">
+    <div class="grid wall">
+        <div class="view" ng-repeat="view in views | filter: { color: 'red' }">
             <div ng-include="'views/view.html'"></div>
         </div>
 
-        <div ng-repeat="view in views | filter: { color: 'yellow' }">
+        <div class="view" ng-repeat="view in views | filter: { color: 'yellow' }">
             <div ng-include="'views/view.html'"></div>
         </div>
 
-        <div ng-repeat="view in views | filter: { color: 'blue' }">
+        <div class="view" ng-repeat="view in views | filter: { color: 'blue' }">
             <div ng-include="'views/view.html'"></div>
         </div>
     </div>
