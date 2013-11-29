@@ -1,10 +1,9 @@
 angular.module('JenkinsLightConfig', [])
     .constant('$config', {
-        'JENKINS_URL': '{#JENKINS_URL#}',
-        'AUTHORIZATION_TOKEN': '{#AUTHORIZATION_TOKEN#}',
-        'DEFAULT_JENKINS_VIEW': ['All'],
-        'JOBS_TO_BE_DISPLAYED': ['blue', 'red', 'blue_anime', 'red_anime'],
-        'DEFAULT_JOBS_PER_LINE': 4,
-        'REFRESH_TIME': 10000
+        'JENKINS_URL': 'http://srv-hudson:8080',
+        'AUTHORIZATION_TOKEN': '3e28cf178353623ef57ba5d280dab9ef',
+        'DEFAULT_JENKINS_VIEW': ['bi-master', 'bi-stable', 'pmsipilot-master', 'pmsipilot-9.0'],
+        'DEFAULT_JOBS_PER_LINE': 5,
+        'REFRESH_TIME': 5000
     });
 
