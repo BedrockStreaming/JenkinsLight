@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('JenkinsLightApp', ['config', 'ngRoute'])
+angular.module('JenkinsLightApp', ['JenkinsLightConfig', 'ngRoute'])
     .config(function ($routeProvider) {
         $routeProvider
             .when('/', {
@@ -11,8 +11,8 @@ angular.module('JenkinsLightApp', ['config', 'ngRoute'])
                 redirectTo: '/'
             });
     })
-    .config(function($httpProvider, CONFIG) {
-        if (CONFIG.AUTHORIZATION_TOKEN) {
-            $httpProvider.defaults.headers.common.Authorization = CONFIG.AUTHORIZATION_TOKEN;
+    .config(function($httpProvider, $config) {
+        if ($config.AUTHORIZATION_TOKEN) {
+            $httpProvider.defaults.headers.common.Authorization = $config.AUTHORIZATION_TOKEN;
         }
     });

@@ -1,5 +1,5 @@
-angular.module('config', [])
-    .constant('CONFIG', {
+angular.module('JenkinsLightConfig', [])
+    .constant('$config', {
         'JENKINS_URL': '{#JENKINS_URL#}',
         'AUTHORIZATION_TOKEN': '{#AUTHORIZATION_TOKEN#}',
         'DEFAULT_JENKINS_VIEW': ['All'],

@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('JenkinsLightApp')
-    .controller('JenkinsLightCtrl', function JenkinsLightCtrl ($scope, CONFIG, $http, $timeout, $location) {
-        $scope.jobsPerLine = CONFIG.DEFAULT_JOBS_PER_LINE;
+    .controller('JenkinsLightCtrl', function JenkinsLightCtrl ($scope, $config, $http, $timeout, $location) {
+        $scope.jobsPerLine = $config.DEFAULT_JOBS_PER_LINE;
 
-        var viewParameter = $location.search().view ? $location.search().view.split(',') : CONFIG.DEFAULT_JENKINS_VIEW,
+        var viewParameter = $location.search().view ? $location.search().view.split(',') : $config.DEFAULT_JENKINS_VIEW,
             fetchBuilds = function(job, cb) {
                 $http({method: 'GET', url: job.url + 'api/json'})
                     .success(function(data) {
@@ -80,10 +80,10 @@ angular.module('JenkinsLightApp')
             },
             callAPI = function () {
                 viewParameter.forEach(function(view) {
-                    fetchView(view, CONFIG.JENKINS_URL + '/view/' + view + '/api/json');
+                    fetchView(view, $config.JENKINS_URL + '/view/' + view + '/api/json');
                 });
 
-                $timeout(callAPI, CONFIG.REFRESH_TIME);
+                $timeout(callAPI, $config.REFRESH_TIME);
             };
 
         $scope.views = [];
