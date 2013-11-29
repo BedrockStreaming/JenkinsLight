@@ -6,7 +6,10 @@ angular.module('JenkinsLightApp')
 
         var viewParameter = $location.search().view ? $location.search().view.split(',') : $config.DEFAULT_JENKINS_VIEW,
             fetchBuilds = function(job, cb) {
-                $http({method: 'GET', url: job.url + 'api/json'})
+                $http({method: 'GET', url: job.url + 'api/json', timeout: 5000})
+                    .error(function() {
+                        (cb || function() {})();
+                    })
                     .success(function(data) {
                         if((data.builds || []).length) {
                             job.build = data.builds[0];
@@ -63,8 +66,8 @@ angular.module('JenkinsLightApp')
                                     }
                                 }
 
-                                if(['red', 'yellow'].indexOf(job.status) > -1) {
-                                    currentView.color = job.status;
+                                if(['red', 'yellow', 'blue'].indexOf(job.status) > -1) {
+                                    currentView.color = currentView.color === 'red' ? currentView.color : job.status;
                                 }
 
                                 if(job.color.indexOf('_anime') > -1) {
