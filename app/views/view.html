@@ -1,0 +1,16 @@
+<h2 ng-show="viewCount(view)" ng-click="openView(view)">
+    <i class="badge {{ view.color }}" ng-class="{animated: view.animated}"></i>
+    {{ view.name }}
+    <i ng-show="view.disabled !== ''" class="badge disabled" title="A: Aborted / D: Disabled / N: Not built">{{ view.disabled }}</i>
+</h2>
+
+<div ng-show="opened[view.name] || view.color !== 'blue'" class="clearfix">
+    <div ng-repeat="job in view.jobs" class="col-1-{{ jobsPerLine }} job {{ job.status }}" ng-class="{animated: job.animated}" ng-show="opened[view.name] || (job.status === 'aborted' || job.status === 'yellow' || job.status === 'red')">
+        <h3>
+            <a href="{{ job.url }}" target="_blank">{{ job.name }}</a>
+        </h3>
+        <small>
+            <span ng-show="job.disabled !== ''">{{ job.disabled }}</span><a ng-show="job.build" href="{{ job.url }}{{ job.build.number }}/console" target="_blank" title="{{ job.build.shortDescription }}">#{{ job.build.number }}</a>
+        </small>
+    </div>
+</div>

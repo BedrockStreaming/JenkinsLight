@@ -1,54 +1,126 @@
 'use strict';
 
-angular.module('jenkinsLightApp')
-    .controller('JenkinsLightCtrl', function JenkinsLightCtrl ($scope, CONFIG, $http, $interval, $location) {
-        $scope.jobs        = [];
-        $scope.jobsPerLine = CONFIG.DEFAULT_JOBS_PER_LINE;
+angular.module('JenkinsLightApp')
+    .controller('JenkinsLightCtrl', function JenkinsLightCtrl ($scope, $config, $http, $timeout, $location) {
+        $scope.jobsPerLine = $config.DEFAULT_JOBS_PER_LINE;
 
-        var viewParameter = CONFIG.DEFAULT_JENKINS_VIEW;
-        if ($location.search().view) {
+        var viewParameter = $location.search().view ? $location.search().view.split(',') : $config.DEFAULT_JENKINS_VIEW,
+            fetchBuilds = function(job, cb) {
+                $http({method: 'GET', url: job.url + 'api/json', timeout: 5000})
+                    .error(function() {
+                        (cb || function() {})();
+                    })
+                    .success(function(data) {
+                        if((data.builds || []).length) {
+                            job.build = data.builds[0];
+                        }
 
-            // Set the value of the view query parameter
-            viewParameter = $location.search().view;
-        }
+                        (cb || function() {})();
+                    });
+            },
+            fetchJob = function(job, view) {
+                job.realname = job.name;
+                job.name = job.name.replace(new RegExp(view.name, 'gi'), '').replace(/[\-_\.]/gi, ' ');
+                job.status = job.color.replace('_anime', '');
+                job.build = view.jobs[job.name] ? view.jobs[job.name].build : undefined;
+                job.disabled = '';
+                job.animated = false;
 
-        var callAPI = function () {
+                if(['disabled', 'notbuilt', 'aborted'].indexOf(job.status) > -1) {
+                    job.disabled = job.status.toUpperCase().substr(0, 1);
+                }
 
-            // Call Jenkins API
-            $http({method: 'GET', url: CONFIG.JENKINS_URL + '/view/' + viewParameter + '/api/json'}).
-                success(function(data) {
-                    $scope.jobs= [];
+                return job;
+            },
+            fetchView = function(viewName, url) {
+                var currentView = _.find($scope.views, { realname: viewName });
 
-                    data.jobs.forEach(function(job) {
+                if(!currentView) {
+                    currentView = {
+                        name: viewName.replace(/\/view\//gi, '/'),
+                        realname: viewName,
+                        color: 'blue',
+                        disabled: '',
+                        animated: false,
+                        jobs: {}
+                    };
 
-                        // Check if this `job` can be displayable
-                        if (CONFIG.JOBS_TO_BE_DISPLAYED.indexOf(job.color) > -1) {
-                            job.name = job.name.
-                                split('-').join(' ').
+                    $scope.opened[currentView.name] = false;
+                    $scope.views.push(currentView);
+                }
 
-                                // Remove all occurrence of view name in `job` name
-                                split(new RegExp(viewParameter, 'gi')).join('');
+                $http({method: 'GET', url: url})
+                    .success(function(data) {
+                        if(data.views) {
+                            data.views.forEach(function(view) {
+                                fetchView(viewName + '/view/' + view.name, view.url + 'api/json');
+                            });
+                        } else {
+                            data.jobs.forEach(function(job) {
+                                job = fetchJob(job, currentView);
+                                currentView.jobs[job.name] = job;
 
-                            // Push job on screen
-                            $scope.jobs.push(job);
+                                if(['disabled', 'notbuilt', 'aborted'].indexOf(job.status) > -1) {
+                                    if(currentView.disabled.indexOf(job.disabled) === -1) {
+                                        currentView.disabled = (currentView.disabled === undefined ? '' : currentView.disabled) + job.disabled;
+                                    }
+                                }
+
+                                if(['red', 'yellow', 'blue'].indexOf(job.status) > -1) {
+                                    currentView.color = currentView.color === 'red' ? currentView.color : job.status;
+                                }
+
+                                if(job.color.indexOf('_anime') > -1) {
+                                    job.animated = currentView.animated = true;
+                                }
+
+                                if(['red', 'yellow', 'notbuilt', 'aborted'].indexOf(job.status) > -1) {
+                                    fetchBuilds(job);
+                                }
+                            });
                         }
                     });
-
-                    // Set the number of job per line
-                    if ($scope.jobs.length <= 4) {
-                        $scope.jobsPerLine = $scope.jobs.length;
-                    } else if (($scope.jobs.length % 5) === 0 && $scope.jobs.length >= 30) {
-                        $scope.jobsPerLine = 5;
-                    } else if (($scope.jobs.length % 4) === 0) {
-                        $scope.jobsPerLine = 4;
-                    } else if (($scope.jobs.length % 3) === 0) {
-                        $scope.jobsPerLine = 3;
-                    }
+            },
+            callAPI = function () {
+                viewParameter.forEach(function(view) {
+                    fetchView(view, $config.JENKINS_URL + '/view/' + view + '/api/json');
                 });
+
+                $timeout(callAPI, $config.REFRESH_TIME);
+            };
+
+        $scope.views = [];
+        $scope.opened = {};
+        $scope.viewCount = function(view) {
+            return Object.keys(view.jobs).length;
+        };
+        $scope.openView = function(view) {
+            $scope.fetchBuilds(
+                view,
+                function() {
+                    $scope.opened[view.name] = !$scope.opened[view.name];
+                }
+            );
+        };
+        $scope.fetchBuilds = function(view, cb) {
+            var done = 0,
+                count = 0;
+
+            cb = cb || function() {};
+
+            if($scope.opened[view.name] === false) {
+                count = Object.keys(view.jobs).length;
+
+                angular.forEach(
+                    view.jobs,
+                    function(job) {
+                        fetchBuilds(job, function() { if(++done === count) { cb(); } });
+                    }
+                );
+            } else {
+                cb();
+            }
         };
 
         callAPI();
-
-        // Begin interval
-        $interval(callAPI, CONFIG.REFRESH_TIME);
     });
