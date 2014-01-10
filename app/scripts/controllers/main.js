@@ -25,13 +25,11 @@ angular.module('jenkinsLightApp')
                     $scope.jobs = [];
                     
                     data.jobs.forEach(function(job) {
-
+                        
                         // Check if this `job` can be displayable
                         if (CONFIG.JOBS_TO_BE_DISPLAYED.indexOf(job.color) > -1) {
-                            
                             if(job.color == CONFIG.JOBS_TO_BE_DISPLAYED[1]){
-                                if(job_status[job.url] == undefined
-                                    || job_status[job.url] == CONFIG.JOBS_TO_BE_DISPLAYED[0]){
+                                if(job_status[job.url] != CONFIG.JOBS_TO_BE_DISPLAYED[1]){
                                     js_alert_error = true;
                                 }
                             }
