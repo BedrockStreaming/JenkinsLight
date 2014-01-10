@@ -5,6 +5,8 @@ angular.module('config', [])
         'DEFAULT_JENKINS_VIEW': 'All',
         'JOBS_TO_BE_DISPLAYED': ['blue', 'red', 'blue_anime', 'red_anime'],
         'DEFAULT_JOBS_PER_LINE': 4,
-        'REFRESH_TIME': 10000
+        'REFRESH_TIME': 10000,
+        'JS_ALERT_FAIL': false,
+        'JS_ALERT_FAIL_MESSAGE': 'Job have fail'
     });
 

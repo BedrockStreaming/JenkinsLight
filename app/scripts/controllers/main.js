@@ -1,5 +1,7 @@
 'use strict';
 
+var job_status = {};
+
 angular.module('jenkinsLightApp')
     .controller('JenkinsLightCtrl', function JenkinsLightCtrl ($scope, CONFIG, $http, $interval, $location) {
         $scope.jobs        = [];
@@ -14,15 +16,25 @@ angular.module('jenkinsLightApp')
 
         var callAPI = function () {
 
+            var js_alert_error = false;
+
             // Call Jenkins API
             $http({method: 'GET', url: CONFIG.JENKINS_URL + '/view/' + viewParameter + '/api/json'}).
                 success(function(data) {
-                    $scope.jobs= [];
 
+                    $scope.jobs = [];
+                    
                     data.jobs.forEach(function(job) {
-
+                        
                         // Check if this `job` can be displayable
                         if (CONFIG.JOBS_TO_BE_DISPLAYED.indexOf(job.color) > -1) {
+                            if(job.color == CONFIG.JOBS_TO_BE_DISPLAYED[1]){
+                                if(job_status[job.url] != CONFIG.JOBS_TO_BE_DISPLAYED[1]){
+                                    js_alert_error = true;
+                                }
+                            }
+                            job_status[job.url] = job.color;
+                            
                             job.name = job.name.
                                 split('-').join(' ').
 
@@ -44,6 +56,11 @@ angular.module('jenkinsLightApp')
                     } else if (($scope.jobs.length % 3) === 0) {
                         $scope.jobsPerLine = 3;
                     }
+                    
+                    if(CONFIG.JS_ALERT_FAIL && js_alert_error == true){
+                        alert(CONFIG.JS_ALERT_FAIL_MESSAGE);
+                    }
+                    
                 });
         };
 
