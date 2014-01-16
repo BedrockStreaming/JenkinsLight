@@ -12,8 +12,8 @@ angular.module('jenkinsLightApp', ['config', 'ngRoute'])
             });
     })
     .config(function($httpProvider, CONFIG) {
-        if (CONFIG.AUTHORIZATION_TOKEN) {
+        if (CONFIG.CI.JENKINS.AUTHORIZATION_TOKEN) {
             // Set authorization token (http://en.wikipedia.org/wiki/Basic_access_authentication#Client_side)
-            $httpProvider.defaults.headers.common.Authorization = CONFIG.AUTHORIZATION_TOKEN;
+            $httpProvider.defaults.headers.common.Authorization = CONFIG.CI.JENKINS.AUTHORIZATION_TOKEN;
         }
     });
