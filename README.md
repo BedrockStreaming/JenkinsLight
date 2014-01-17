@@ -32,6 +32,7 @@ Please configure a new `app/scripts/config.js` file from [`app/scripts/config.js
 | DEFAULT_JOBS_PER_LINE | Default number of jobs per line on a screen |
 | REFRESH_TIME | Refresh time (ms) |
 | BACKGROUND_BLANK_SCREEN | Displays background if no job is displayed |
+| JOBS_NOT_DISPLAYED | Not displayed jobs whose title is in the RegExp |
 
 
 Then you have to build the server code.
