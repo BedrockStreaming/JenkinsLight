@@ -9,6 +9,13 @@ angular.module('jenkinsLightApp')
             JenkinsService.getJobs().
                 then(function (jobs) {
                     $scope.jobs = jobs;
+
+                    // Display background image on blank screen
+                    if (CONFIG.BACKGROUND_BLANK_SCREEN && $scope.jobs.length == 0) {
+                        $scope.backgroundBlankScreen = {
+                            'background-image': 'url(' + CONFIG.BACKGROUND_BLANK_SCREEN + ')'
+                        };
+                    }
                 });
         };
 

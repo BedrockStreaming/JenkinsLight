@@ -31,6 +31,7 @@ Please configure a new `app/scripts/config.js` file from [`app/scripts/config.js
 | CI.JENKINS.JOBS_TO_BE_DISPLAYED | Array of all jobs types that can be displayed |
 | DEFAULT_JOBS_PER_LINE | Default number of jobs per line on a screen |
 | REFRESH_TIME | Refresh time (ms) |
+| BACKGROUND_BLANK_SCREEN | Displays background if no job is displayed |
 
 
 Then you have to build the server code.
