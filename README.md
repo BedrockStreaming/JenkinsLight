@@ -6,7 +6,7 @@ A build monitoring tool (buildwall) that allows you to quickly detect failing pr
 
 ## Requirements
 
-This project required a [cors-plugin Jenkins plugin](https://github.com/jhinrichsen/cors-plugin) to enabled CORS.  
+This project required a [cors-plugin Jenkins plugin](https://github.com/jhinrichsen/cors-plugin) to enabled CORS.
 Enabling CORS would let you call the Jenkins REST API from javascript (you can use [the provided packaged plugin](bin/cors.hpi)).
 
 ## Installation
@@ -25,10 +25,10 @@ Please configure a new `app/scripts/config.js` file from [`app/scripts/config.js
 
 | Option | Description |
 |--------|-------------|
-| JENKINS_URL | Jenkins server url |
-| AUTHORIZATION_TOKEN | If your jenkins server is secured, set your authoriaztion token like "Basic 0123456=" (opt.) |
-| DEFAULT_JENKINS_VIEW | Default view. Like "All"|
-| JOBS_TO_BE_DISPLAYED | Array of all jobs types that can be displayed |
+| CI.JENKINS.URL | Jenkins server url |
+| CI.JENKINS.AUTHORIZATION_TOKEN | If your jenkins server is secured, set your authoriaztion token like "Basic 0123456=" (opt.) |
+| CI.JENKINS.DEFAULT_VIEW | Default view. Like "All"|
+| CI.JENKINS.JOBS_TO_BE_DISPLAYED | Array of all jobs types that can be displayed |
 | DEFAULT_JOBS_PER_LINE | Default number of jobs per line on a screen |
 | REFRESH_TIME | Refresh time (ms) |
 
