@@ -25,7 +25,7 @@ angular.module('jenkinsLightApp')
                             if (CONFIG.CI.JENKINS.JOBS_TO_BE_DISPLAYED.indexOf(job.color) > -1) {
 
                                 // Filter jobs not displayed
-                                if (CONFIG.JOBS_NOT_DISPLAYED && new RegExp(CONFIG.JOBS_NOT_DISPLAYED, 'gi').test(job.name)) {
+                                if (CONFIG.JOBS_NOT_DISPLAYED_REGEXP && new RegExp(CONFIG.JOBS_NOT_DISPLAYED_REGEXP, 'gi').test(job.name)) {
                                     return;
                                 }
 

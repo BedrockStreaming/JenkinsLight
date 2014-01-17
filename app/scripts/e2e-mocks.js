@@ -20,9 +20,9 @@ angular.module('e2e-mocks', ['ngMockE2E'])
 
         $httpBackend.whenGET('{#JENKINS_URL#}/view/regexp/api/json').respond(function () {
             var jobs = [
-                {'name':'panic-sdc-dev','url':'https://jenkins-master.m6web.fr/job/panic-sdc-dev/','color':'red'},
-                {'name':'panic-sdc-prod','url':'https://jenkins-master.m6web.fr/job/panic-sdc-prod/','color':'blue'},
-                {'name':'panic-sdc-preprod','url':'https://jenkins-master.m6web.fr/job/panic-sdc-preprod/','color':'red'}
+                {'name':'regexp','url':'https://jenkins-master.m6web.fr/job/regexp/','color':'red'},
+                {'name':'a-regexp','url':'https://jenkins-master.m6web.fr/job/a-regexp/','color':'blue'},
+                {'name':'regexp-troll','url':'https://jenkins-master.m6web.fr/job/regexp-troll/','color':'red'}
             ];
 
             return [200, {'description':null,'jobs':jobs,'name':'regexp','property':[],'url':'https://jenkins-master.m6web.fr/view/regexp/'}];

@@ -11,10 +11,10 @@ angular.module('jenkinsLightApp')
                 then(function (jobs) {
 
                     // Display background image on blank screen
-                    if (CONFIG.BACKGROUND_BLANK_SCREEN) {
+                    if (CONFIG.BACKGROUND_BLANK_SCREEN_URL) {
                         if (jobs.length == 0) {
                             $scope.backgroundBlankScreen = {
-                                'background-image': 'url(' + CONFIG.BACKGROUND_BLANK_SCREEN + ')'
+                                'background-image': 'url(' + CONFIG.BACKGROUND_BLANK_SCREEN_URL + ')'
                             };
                         } else {
                             $scope.backgroundBlankScreen = null;
