@@ -16,7 +16,7 @@ a {
     margin:0;
     padding:0;
     background-repeat: no-repeat;
-    background-position: center fixed;
+    background-position: center;
     -webkit-background-size: cover; /* pour Chrome et Safari */
     -moz-background-size: cover; /* pour Firefox */
     -o-background-size: cover; /* pour Opera */
