@@ -2,6 +2,7 @@
 
 angular.module('e2e-mocks', ['ngMockE2E'])
     .run(function($httpBackend) {
+
         // Don't mock the html views
         $httpBackend.whenGET(/views\/\w+.*/).passThrough();
 
