@@ -9,6 +9,7 @@ angular.module('config', [])
             }
         },
         'DEFAULT_JOBS_PER_LINE': 4,
-        'REFRESH_TIME': 10000
+        'REFRESH_TIME': 10000,
+        'BACKGROUND_BLANK_SCREEN': 'image-url-or-null'
     });
 
