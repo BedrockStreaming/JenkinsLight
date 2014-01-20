@@ -10,6 +10,7 @@ angular.module('config', [])
         },
         'DEFAULT_JOBS_PER_LINE': 4,
         'REFRESH_TIME': 10000,
-        'BACKGROUND_BLANK_SCREEN': 'image-url-or-null'
+        'BACKGROUND_BLANK_SCREEN_URL': 'image-url-or-null',
+        'JOBS_NOT_DISPLAYED_REGEXP': '^regexp$'
     });
 
