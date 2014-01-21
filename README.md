@@ -11,9 +11,16 @@ Enabling CORS would let you call the Jenkins REST API from javascript (you can u
 
 ## Installation
 
-```shell
-$ git clone git@github.com:M6Web/JenkinsLight.git
+#### Clone the project
+
+```
+$ git clone https://github.com/M6Web/JenkinsLight.git
 $ cd JenkinsLight
+```
+
+#### Install dependencies
+
+```
 $ npm install -g bower grunt-cli
 $ npm install
 $ bower install
@@ -51,7 +58,43 @@ Use `view` query parameter for select a Jenkins view.
 http://jenkins-light-url/index.html#?view=MyView
 ```
 
-## Running the tests
+## Installation for dev
+
+#### Clone the project
+
+```
+$ git clone https://github.com/M6Web/JenkinsLight.git
+$ cd JenkinsLight/vagrant
+```
+
+Install [Vagrant](http://www.vagrantup.com/downloads) and run the VM :
+
+```
+$ vagrant up
+$ vagrant ssh
+$ cd /vagrant
+```
+
+*Note : configure your own Vagrantfile and provisionning if necessary.*
+
+#### Install dependencies
+
+```
+$ npm install
+$ bower install
+```
+
+*Note : you must add `--no-bin-links` option to `npm install` on Windows.*
+
+#### Run the server
+
+```
+$ grunt server
+```
+
+You can now access the application at `http://localhost:8888`.
+
+## Tests
 
 ```shell
 $ npm test
