@@ -18,14 +18,6 @@ module.exports = function (grunt) {
             dist: 'dist'
         },
         watch: {
-            coffee: {
-                files: ['<%= yeoman.app %>/scripts/{,*/}*.coffee'],
-                tasks: ['coffee:dist']
-            },
-            coffeeTest: {
-                files: ['test/spec/{,*/}*.coffee'],
-                tasks: ['coffee:test']
-            },
             styles: {
                 files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
                 tasks: ['copy:styles', 'autoprefixer']
@@ -57,7 +49,7 @@ module.exports = function (grunt) {
             options: {
                 port: 9000,
                 // Change this to '0.0.0.0' to access the server from outside.
-                hostname: 'localhost',
+                hostname: '0.0.0.0',
                 livereload: 35729
             },
             livereload: {
@@ -108,30 +100,6 @@ module.exports = function (grunt) {
                 '<%= yeoman.app %>/scripts/{,*/}*.js'
             ]
         },
-        coffee: {
-            options: {
-                sourceMap: true,
-                sourceRoot: ''
-            },
-            dist: {
-                files: [{
-                    expand: true,
-                    cwd: '<%= yeoman.app %>/scripts',
-                    src: '{,*/}*.coffee',
-                    dest: '.tmp/scripts',
-                    ext: '.js'
-                }]
-            },
-            test: {
-                files: [{
-                    expand: true,
-                    cwd: 'test/spec',
-                    src: '{,*/}*.coffee',
-                    dest: '.tmp/spec',
-                    ext: '.js'
-                }]
-            }
-        },
         // not used since Uglify task does concat,
         // but still available if needed
         /*concat: {
@@ -168,16 +136,6 @@ module.exports = function (grunt) {
                     expand: true,
                     cwd: '<%= yeoman.app %>/images',
                     src: '{,*/}*.{png,jpg,jpeg}',
-                    dest: '<%= yeoman.dist %>/images'
-                }]
-            }
-        },
-        svgmin: {
-            dist: {
-                files: [{
-                    expand: true,
-                    cwd: '<%= yeoman.app %>/images',
-                    src: '{,*/}*.svg',
                     dest: '<%= yeoman.dist %>/images'
                 }]
             }
@@ -249,18 +207,14 @@ module.exports = function (grunt) {
         },
         concurrent: {
             server: [
-                'coffee:dist',
                 'copy:styles'
             ],
             test: [
-                'coffee',
                 'copy:styles'
             ],
             dist: [
-                'coffee',
                 'copy:styles',
                 'imagemin',
-                'svgmin',
                 'htmlmin'
             ]
         },
@@ -268,11 +222,6 @@ module.exports = function (grunt) {
             e2e: {
                 configFile: 'karma-e2e.conf.js',
                 singleRun: true
-            }
-        },
-        cdnify: {
-            dist: {
-                html: ['<%= yeoman.dist %>/*.html']
             }
         },
         ngmin: {
@@ -326,7 +275,6 @@ module.exports = function (grunt) {
         'concat',
         'ngmin',
         'copy:dist',
-        'cdnify',
         'cssmin',
         'uglify',
         'rev',
