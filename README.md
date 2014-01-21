@@ -80,7 +80,7 @@ $ cd /vagrant
 #### Install dependencies
 
 ```
-$ npm install
+$ sudo npm install
 $ bower install
 ```
 
