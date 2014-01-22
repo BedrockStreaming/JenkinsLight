@@ -6,8 +6,6 @@ angular.module('e2e-mocks', ['ngMockE2E'])
         CONFIG.CI.JENKINS.JOBS_TO_BE_DISPLAYED = ['blue', 'red'];
         CONFIG.BACKGROUND_BLANK_SCREEN_URL     = 'image-url-or-null';
 
-        console.log(CONFIG);
-
         // Don't mock the html views
         $httpBackend.whenGET(/views\/\w+.*/).passThrough();
 

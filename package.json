@@ -25,7 +25,6 @@
         "grunt-usemin":                  "~2.0.0",
         "jshint-stylish":                "~0.1.3",
         "load-grunt-tasks":              "~0.2.0",
-        "time-grunt":                    "~0.2.0",
         "karma-ng-html2js-preprocessor": "~0.1.0",
         "karma-ng-scenario":             "~0.1.0",
         "grunt-karma":                   "~0.6.2",
