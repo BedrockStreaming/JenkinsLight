@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('jenkinsLightApp')
-    .controller('JenkinsLightCtrl', function JenkinsLightCtrl ($scope, CONFIG, JenkinsService, $interval) {
+    .controller('JenkinsLightCtrl', function JenkinsLightCtrl ($scope, $window, CONFIG, JenkinsService, $interval) {
         $scope.jobs                  = [];
         $scope.jobsPerLine           = CONFIG.DEFAULT_JOBS_PER_LINE;
         $scope.backgroundBlankScreen = null;
@@ -21,6 +21,32 @@ angular.module('jenkinsLightApp')
                         }
                     }
 
+                    // Calculation of optimized job area
+                    var minJobHeight = 100;
+                    var screenHeigth = $window.innerHeight;
+                    var screenWidth  = $window.innerWidth;
+                    var oneJobArea   = Math.floor(screenHeigth * screenWidth / jobs.length);
+
+                    var oneJobWidth, oneJobHeight, jobsPerColumn, jobsPerLine;
+
+                    for (var i = 1; i <= CONFIG.MAX_JOBS_PER_LINE; i++) {
+                        jobsPerLine  = i;
+                        oneJobWidth  = Math.floor(screenWidth / jobsPerLine);
+                        oneJobHeight = Math.floor(oneJobArea / oneJobWidth);
+
+                        if (oneJobHeight < minJobHeight) {
+                            oneJobHeight = minJobHeight;
+                        }
+
+                        jobsPerColumn = Math.floor(screenHeigth / oneJobHeight);
+
+                        if (jobsPerColumn * jobsPerLine >= jobs.length) {
+                            break;
+                        }
+                    }
+
+                    $scope.oneJobHeight = oneJobHeight;
+                    $scope.jobsPerLine = jobsPerLine;
                     $scope.jobs = jobs;
                 });
         };
