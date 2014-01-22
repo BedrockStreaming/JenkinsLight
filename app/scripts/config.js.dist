@@ -1,16 +1,15 @@
 angular.module('config', [])
     .constant('CONFIG', {
-        'CI': {
-            'JENKINS': {
-                'URL': '{#JENKINS_URL#}',
-                'AUTHORIZATION_TOKEN': '{#AUTHORIZATION_TOKEN#}',
-                'DEFAULT_VIEW': 'All',
-                'JOBS_TO_BE_DISPLAYED': ['blue', 'red', 'blue_anime', 'red_anime'],
+        CI: {
+            JENKINS: {
+                URL: '{#JENKINS_URL#}',
+                AUTHORIZATION_TOKEN: '{#AUTHORIZATION_TOKEN#}',
+                DEFAULT_VIEW: 'All',
+                JOBS_TO_BE_DISPLAYED: '{#DISPLAYED_JOB_TYPES#}'
             }
         },
-        'MAX_JOBS_PER_LINE': 4,
-        'REFRESH_TIME': 10000,
-        'BACKGROUND_BLANK_SCREEN_URL': 'image-url-or-null',
-        'JOBS_NOT_DISPLAYED_REGEXP': '^regexp$'
+        MAX_JOBS_PER_LINE: 4,
+        REFRESH_TIME: 10000,
+        BACKGROUND_BLANK_SCREEN_URL: '{#BACKGROUND_URL#}',
+        JOBS_NOT_DISPLAYED_REGEXP: '{#NOT_DISPLAYED_REGEXP#}'
     });
-

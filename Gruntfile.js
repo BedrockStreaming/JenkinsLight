@@ -9,7 +9,6 @@
 
 module.exports = function (grunt) {
     require('load-grunt-tasks')(grunt);
-    require('time-grunt')(grunt);
 
     grunt.initConfig({
         yeoman: {
@@ -266,8 +265,7 @@ module.exports = function (grunt) {
         },
         karma: {
             e2e: {
-                configFile: 'karma-e2e.conf.js',
-                singleRun: true
+                configFile: 'karma-e2e.conf.js'
             }
         },
         cdnify: {

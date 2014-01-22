@@ -1,7 +1,11 @@
 'use strict';
 
 angular.module('e2e-mocks', ['ngMockE2E'])
-    .run(function($httpBackend) {
+    .run(function($httpBackend, CONFIG) {
+
+        CONFIG.CI.JENKINS.JOBS_TO_BE_DISPLAYED = ['blue', 'red'];
+        CONFIG.BACKGROUND_BLANK_SCREEN_URL     = 'image-url-or-null';
+        CONFIG.JOBS_NOT_DISPLAYED_REGEXP       = '^regexp$';
 
         // Don't mock the html views
         $httpBackend.whenGET(/views\/\w+.*/).passThrough();
