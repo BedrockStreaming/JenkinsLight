@@ -4,10 +4,10 @@ Vagrant::Config.run do |config|
     config.vm.box = "precise32"
     config.vm.box_url = "http://files.vagrantup.com/precise32.box"
 
-    config.vm.network :bridged
+    config.vm.network :hostonly, "10.0.0.2", :netmask => "255.255.255.0"
     config.vm.forward_port 9000, 8888
 
-    config.vm.share_folder("vagrant-root", "/vagrant", ".", :nfs => true)
+    config.vm.share_folder("vagrant-root", "/vagrant", ".", :nfs => false)
 
     config.vm.provision :shell, path: "manifests/bootstrap.sh"
     config.vm.provision :puppet do |puppet|
