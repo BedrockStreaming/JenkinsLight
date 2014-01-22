@@ -29,7 +29,7 @@ Please configure a new `app/scripts/config.js` file from [`app/scripts/config.js
 | CI.JENKINS.AUTHORIZATION_TOKEN | If your jenkins server is secured, set your authoriaztion token like "Basic 0123456=" (opt.) |
 | CI.JENKINS.DEFAULT_VIEW | Default view. Like "All"|
 | CI.JENKINS.JOBS_TO_BE_DISPLAYED | Array of all jobs types that can be displayed |
-| DEFAULT_JOBS_PER_LINE | Default number of jobs per line on a screen |
+| MAX_JOBS_PER_LINE | Maximum number of jobs per line on a screen |
 | REFRESH_TIME | Refresh time (ms) |
 | BACKGROUND_BLANK_SCREEN_URL | Displays background if no job is displayed |
 | JOBS_NOT_DISPLAYED_REGEXP | Not displayed jobs whose title is in the RegExp |

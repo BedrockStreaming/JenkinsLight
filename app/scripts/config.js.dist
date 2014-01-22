@@ -8,7 +8,7 @@ angular.module('config', [])
                 JOBS_TO_BE_DISPLAYED: '{#DISPLAYED_JOB_TYPES#}'
             }
         },
-        DEFAULT_JOBS_PER_LINE: 4,
+        MAX_JOBS_PER_LINE: 4,
         REFRESH_TIME: 10000,
         BACKGROUND_BLANK_SCREEN_URL: '{#BACKGROUND_URL#}',
         JOBS_NOT_DISPLAYED_REGEXP: '{#NOT_DISPLAYED_REGEXP#}'
