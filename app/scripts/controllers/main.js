@@ -23,54 +23,39 @@ angular.module('jenkinsLightApp')
 
                     // Calculation of optimized job area
                     var minJobHeight = 100;
-                    var minJobWidth  = 200;
-                    var screenHeigth = $window.innerHeight;
+                    var screenHeigth = $window.innerHeight - 40;
                     var screenWidth  = $window.innerWidth;
-                    var oneJobArea   = Math.floor(screenHeigth * screenWidth / jobs.length);
-
-                    var oneJobWidth, oneJobHeight, jobsPerColumn, jobsPerLine;
                     var sizeSet      = [];
-                    var noFitSizeSet = [];
+                    var oneJobWidth, oneJobHeight, jobsPerColumn, jobsPerLine;
 
-                    for (var i = 1; i <= CONFIG.MAX_JOBS_PER_LINE; i++) {
-                        jobsPerLine  = i;
-                        oneJobWidth  = Math.floor(screenWidth / jobsPerLine);
-                        oneJobHeight = Math.floor(oneJobArea / oneJobWidth);
+                    for (var i = 0; i <= CONFIG.MAX_JOBS_PER_LINE ; i++) {
+                        jobsPerLine   = i;
+                        jobsPerColumn = Math.ceil(jobs.length / jobsPerLine);
+                        oneJobWidth   = Math.ceil(screenWidth / jobsPerLine);
+                        oneJobHeight  = Math.ceil(screenHeigth / jobsPerColumn);
 
                         if (oneJobHeight < minJobHeight) {
                             oneJobHeight = minJobHeight;
                         }
 
-                        jobsPerColumn = Math.floor(screenHeigth / oneJobHeight);
-
-                        if ((jobsPerColumn * jobsPerLine >= jobs.length) && (oneJobWidth >= minJobWidth)) {
-                            sizeSet.push({'oneJobHeight': oneJobHeight, 'jobsPerLine': jobsPerLine});
-                        } else if (oneJobWidth >= minJobWidth) {
-                            noFitSizeSet.push({'oneJobHeight': oneJobHeight, 'jobsPerLine': jobsPerLine});
-                        }
+                        sizeSet.push({'oneJobHeight': oneJobHeight, 'jobsPerLine': jobsPerLine, 'ratio': oneJobWidth / oneJobHeight});
                     }
 
-                    if (sizeSet.length == 1) {
-                        oneJobHeight = sizeSet[0]['oneJobHeight'];
-                        jobsPerLine  = sizeSet[0]['jobsPerLine'];
-                    } else if (sizeSet.length > 1) {
-                        var index = Math.ceil(sizeSet.length / 2) - 1;
+                    // Searching ratio most closer to 4
+                    var baseRatio = 4;
+                    sizeSet.sort(function(a, b) {
+                        return (Math.abs(a['ratio'] - baseRatio) > Math.abs(b['ratio'] - baseRatio)) ? 1 : -1;
+                    });
 
-                        oneJobHeight = sizeSet[index]['oneJobHeight'];
-                        jobsPerLine  = sizeSet[index]['jobsPerLine'];
-                    } else if (noFitSizeSet.length != CONFIG.MAX_JOBS_PER_LINE) {
-                        var index = Math.ceil(noFitSizeSet.length / 2) - 1;
-
-                        oneJobHeight = noFitSizeSet[index]['oneJobHeight'];
-                        jobsPerLine  = noFitSizeSet[index]['jobsPerLine'];
-                    }
+                    oneJobHeight = sizeSet[0]['oneJobHeight'];
+                    jobsPerLine  = sizeSet[0]['jobsPerLine'];
 
                     var fontSize = Math.floor(15 * (oneJobHeight / minJobHeight));
 
                     $scope.oneJobHeight = oneJobHeight;
                     $scope.jobsPerLine  = jobsPerLine;
-                    $scope.jobs         = jobs;
                     $scope.fontSize     = fontSize;
+                    $scope.jobs         = jobs;
                 });
         };
 
