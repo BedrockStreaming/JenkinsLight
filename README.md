@@ -60,14 +60,21 @@ http://jenkins-light-url/index.html#?view=MyView
 
 ## Installation for dev
 
-#### Clone the project
+#### Clone and init the project
 
 ```
 $ git clone https://github.com/M6Web/JenkinsLight.git
 $ cd JenkinsLight/vagrant
+$ git submodule install --init
 ```
 
-Install [Vagrant](http://www.vagrantup.com/downloads) and run the VM :
+Install [Vagrant](http://www.vagrantup.com/downloads) and configure `Vagrantfile` :
+
+```
+$ cp Vagrantfile.dist Vagrantfile
+```
+
+*Note : configure your own Vagrantfile and provisionning if necessary.*
 
 ```
 $ vagrant up
@@ -75,16 +82,14 @@ $ vagrant ssh
 $ cd /vagrant
 ```
 
-*Note : configure your own Vagrantfile and provisionning if necessary.*
-
 #### Install dependencies
 
 ```
-$ sudo npm install
+$ sudo npm install --no-bin-links
 $ bower install
 ```
 
-*Note : you must add `--no-bin-links` option to `npm install` on Windows.*
+[Configure your application](#configuration) via `app/scripts/config.js`.
 
 #### Run the server
 
