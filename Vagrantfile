@@ -9,6 +9,7 @@ Vagrant::Config.run do |config|
 
     config.vm.share_folder("vagrant-root", "/vagrant", ".", :nfs => true)
 
+    config.vm.provision :shell, path: "manifests/bootstrap.sh"
     config.vm.provision :puppet do |puppet|
         puppet.module_path = "modules"
         puppet.manifests_path = "manifests"
