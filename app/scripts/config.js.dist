@@ -3,9 +3,16 @@ angular.module('config', [])
         'CI': {
             'JENKINS': {
                 'URL': '{#JENKINS_URL#}',
-                'AUTHORIZATION_TOKEN': '{#AUTHORIZATION_TOKEN#}',
+                'AUTHORIZATION_TOKEN': '{#JENKINS_AUTHORIZATION_TOKEN#}',
                 'DEFAULT_VIEW': 'All',
                 'JOBS_TO_BE_DISPLAYED': ['blue', 'red', 'blue_anime', 'red_anime'],
+            },
+            'TRAVIS': {
+                'URL': 'https://api.travis-ci.org',
+                'AUTHORIZATION_TOKEN': '{#TRAVIS_AUTHORIZATION_TOKEN#}',
+                'USERNAME': '{#USERNAME#}',
+                'PROJECTS': [{#PROJECTS_LIST#}],
+                'JOBS_TO_BE_DISPLAYED': [0, 1]
             }
         },
         'DEFAULT_JOBS_PER_LINE': 4,
