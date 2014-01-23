@@ -30,17 +30,23 @@ $ bower install
 
 Please configure a new `app/scripts/config.js` file from [`app/scripts/config.js.dist`](app/scripts/config.js.dist).
 
-| Option | Description |
-|--------|-------------|
-| CI.JENKINS.URL | Jenkins server url |
-| CI.JENKINS.AUTHORIZATION_TOKEN | If your jenkins server is secured, set your authoriaztion token like "Basic 0123456=" (opt.) |
-| CI.JENKINS.DEFAULT_VIEW | Default view. Like "All"|
-| CI.JENKINS.JOBS_TO_BE_DISPLAYED | Array of all jobs types that can be displayed |
-| MAX_JOBS_PER_LINE | Maximum number of jobs per line on a screen |
-| REFRESH_TIME | Refresh time (ms) |
-| BACKGROUND_BLANK_SCREEN_URL | Displays background if no job is displayed |
-| JOBS_NOT_DISPLAYED_REGEXP | Not displayed jobs whose title is in the RegExp |
+Jenkins options :
 
+* **CI.JENKINS.URL** : Jenkins server url
+* **CI.JENKINS.AUTHORIZATION_TOKEN** : authorization token if your Jenkins server is secured, eg: "Basic 0123456=" (opt.)
+* **CI.JENKINS.DEFAULT_VIEW** : default Jenkins view to display, eg : "All"
+* **CI.JENKINS.JOBS_TO_BE_DISPLAYED** : array of all job types that can be displayed :
+  * *red* : failing job,
+  * *red_anime* : building failed job,
+  * *blue* : succeeding job,
+  * *blue_anime* : building succeeded job.
+
+Display options :
+
+* **MAX_JOBS_PER_LINE** : maximum number of jobs displayed per line
+* **REFRESH_TIME** : refresh time (ms)
+* **BACKGROUND_BLANK_SCREEN_URL** : background image url use if no job are dislayed
+* **JOBS_NOT_DISPLAYED_REGEXP** : exclude jobs which name match this regexp
 
 Then you have to build the server code.
 
