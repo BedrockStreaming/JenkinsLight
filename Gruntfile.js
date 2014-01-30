@@ -9,7 +9,7 @@
 
 module.exports = function (grunt) {
     require('load-grunt-tasks')(grunt);
-    
+
     grunt.initConfig({
         yeoman: {
             // configurable paths
@@ -276,7 +276,7 @@ module.exports = function (grunt) {
         'uglify',
         'rev',
         'usemin',
-        'preprocess:prod',
+        'preprocess:prod'
     ]);
 
     grunt.registerTask('default', [
