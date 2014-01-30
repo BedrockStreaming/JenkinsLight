@@ -16,6 +16,15 @@ module.exports = function (grunt) {
             app: require('./bower.json').appPath || 'app',
             dist: 'dist'
         },
+        env: {
+            prod: {}
+        },
+        preprocess: {
+            prod: {
+                src : '<%= yeoman.dist %>/index.html',
+                dest : '<%= yeoman.dist %>/index.html'
+            }
+        },
         watch: {
             styles: {
                 files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
@@ -256,6 +265,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build', [
         'clean:dist',
+        'env:prod',
         'useminPrepare',
         'concurrent:dist',
         'autoprefixer',
@@ -265,7 +275,8 @@ module.exports = function (grunt) {
         'cssmin',
         'uglify',
         'rev',
-        'usemin'
+        'usemin',
+        'preprocess:prod'
     ]);
 
     grunt.registerTask('default', [

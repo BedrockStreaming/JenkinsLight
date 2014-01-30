@@ -23,9 +23,11 @@ angular.module('jenkinsLightApp')
 
                     // Calculation of optimized job area
                     var minJobHeight = 100;
+                    var minJobWidth  = 200;
                     var screenHeigth = $window.innerHeight - 40;
                     var screenWidth  = $window.innerWidth;
                     var sizeSet      = [];
+                    var tooLargeSet  = [];
                     var oneJobWidth, oneJobHeight, jobsPerColumn, jobsPerLine;
 
                     for (var i = 0; i <= CONFIG.MAX_JOBS_PER_LINE ; i++) {
@@ -34,21 +36,32 @@ angular.module('jenkinsLightApp')
                         oneJobWidth   = Math.ceil(screenWidth / jobsPerLine);
                         oneJobHeight  = Math.ceil(screenHeigth / jobsPerColumn);
 
-                        if (oneJobHeight < minJobHeight) {
+                        if ((oneJobHeight < minJobHeight) && (oneJobWidth >= minJobWidth)) {
                             oneJobHeight = minJobHeight;
+                            tooLargeSet.push({'oneJobHeight': oneJobHeight, 'jobsPerLine': jobsPerLine});
+                            continue;
+                        } else if (oneJobWidth < minJobWidth) {
+                            continue;
                         }
 
                         sizeSet.push({'oneJobHeight': oneJobHeight, 'jobsPerLine': jobsPerLine, 'ratio': oneJobWidth / oneJobHeight});
                     }
 
-                    // Searching ratio most closer to 4
-                    var baseRatio = 4;
-                    sizeSet.sort(function(a, b) {
-                        return (Math.abs(a['ratio'] - baseRatio) > Math.abs(b['ratio'] - baseRatio)) ? 1 : -1;
-                    });
+                    // If at least one solution fit in screen
+                    if (sizeSet.length !== 0) {
+                        // Searching ratio most closer to 4
+                        var baseRatio = 4;
+                        sizeSet.sort(function(a, b) {
+                            return (Math.abs(a['ratio'] - baseRatio) > Math.abs(b['ratio'] - baseRatio)) ? 1 : -1;
+                        });
 
-                    oneJobHeight = sizeSet[0]['oneJobHeight'];
-                    jobsPerLine  = sizeSet[0]['jobsPerLine'];
+                        oneJobHeight = sizeSet[0]['oneJobHeight'];
+                        jobsPerLine  = sizeSet[0]['jobsPerLine'];
+                    } else {
+                        var solution = tooLargeSet.pop();
+                        oneJobHeight = solution['oneJobHeight'];
+                        jobsPerLine  = solution['jobsPerLine'];
+                    }
 
                     var fontSize = Math.floor(15 * (oneJobHeight / minJobHeight));
 
