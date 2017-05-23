@@ -9,7 +9,7 @@ angular.module('jenkinsLightApp')
         var callAPI = function () {
             JenkinsService.getJobs().
                 then(function (jobs) {
-
+                    
                     // Display background image on blank screen
                     if (CONFIG.BACKGROUND_BLANK_SCREEN_URL) {
                         if (jobs.length == 0) {

@@ -18,15 +18,28 @@ angular.module('jenkinsLightApp')
                         // Initialize jobs data
                         var data = response.data;
                         var jobs = [];
-
+                       // console.log("jobs");
+                        
                         data.jobs.forEach(function(job) {
-
+                            //console.log(job);
+                            //console.log(CONFIG.CI.JENKINS.JOBS_TO_BE_DISPLAYED);
                             // Check if this `job` can be displayable
                             if (CONFIG.CI.JENKINS.JOBS_TO_BE_DISPLAYED.indexOf(job.color) > -1) {
 
                                 // Filter jobs not displayed
                                 if (CONFIG.JOBS_NOT_DISPLAYED_REGEXP && new RegExp(CONFIG.JOBS_NOT_DISPLAYED_REGEXP, 'gi').test(job.name)) {
                                     return;
+                                }
+
+                                if(job.color === "red")
+                                { 
+                                    var promiseGetConsole = $http({method: 'GET', url: CONFIG.CI.JENKINS.URL + '/job/' + job.name + '/lastBuild/consoleText'}).
+                                    then(function(response){
+                                        console.log("response");
+                                        job.console = response.data;
+                                    });
+
+
                                 }
 
                                 job.name = job.name.

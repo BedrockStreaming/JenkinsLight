@@ -4,6 +4,7 @@
         <div ng-repeat="job in jobs" class="col-1-{{ jobsPerLine }}">
             <div class="job job-color-{{ job.color }}" style="height: {{ oneJobHeight - 20 }}px; font-size: {{ fontSize }}px;">
                 <h2><a href="{{ job.url }}" target="_blank">{{ job.name }}</a></h2>
+                <pre><code>{{ job.console }}</code></pre>
             </div>
         </div>
     </div>
