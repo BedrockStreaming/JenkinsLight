@@ -2,10 +2,12 @@
     <div class="info"><a href="http://github.com/m6web/JenkinsLight">JenkinsLight</a> by <a href="http://tech.m6web.fr">M6Web</a></div>
     <div class="grid wall">
         <div ng-repeat="job in jobs" class="col-1-{{ jobsPerLine }}">
-            <div class="job job-color-{{ job.color }}" style="height: {{ oneJobHeight - 20 }}px; font-size: {{ fontSize }}px;">
-                <h2><a href="{{ job.url }}" target="_blank">{{ job.name }}</a></h2>
-                <pre><code>{{ job.console }}</code></pre>
-            </div>
+            	<div class="job job-color-{{ job.color }}" style="height: {{ oneJobHeight - 20 }}px; font-size: {{ fontSize }}px;">
+                	<h2><a href="{{ job.url}}" target="_blank">{{ job.name }} </a></h2>
+                	<a ng-if="job.multijob" href={{'index.html#/?view='+job.name}}> 
+                		<pre style="height:100%; overflow: scroll"><code>{{ job.console }}</code></pre>
+                	</a>
+            	</div>
         </div>
     </div>
 </div>

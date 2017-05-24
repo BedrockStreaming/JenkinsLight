@@ -35,13 +35,18 @@ angular.module('jenkinsLightApp')
                                 { 
                                     var promiseGetConsole = $http({method: 'GET', url: CONFIG.CI.JENKINS.URL + '/job/' + job.name + '/lastBuild/consoleText'}).
                                     then(function(response){
-                                        console.log("response");
                                         job.console = response.data;
                                     });
 
 
                                 }
 
+                                
+                                if(job._class.indexOf('multijob') !== -1 )
+                                {
+                                    job.multijob = true;
+                                }
+                                    
                                 job.name = job.name.
                                     split('-').join(' ').
 
